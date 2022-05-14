@@ -7,8 +7,8 @@ interface IProps {
 
 export default function SidebarRow({ Icon, title }: IProps) {
   return (
-    <div className="flex items-center px-3 py-4 space-x-2 rounded-full cursor-pointer hover:bg-gray-100 group">
-      <Icon className="h-10 w-10" />
+    <div className="flex max-w-fit items-center px-4 py-3 space-x-2 rounded-full cursor-pointer transition-all duration-200 hover:bg-gray-100 group">
+      <Icon className="h-6 w-6" />
       <p className="group-hover:text-twitter">{title}</p>
     </div>
   );
