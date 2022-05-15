@@ -1,4 +1,5 @@
 import { SearchIcon } from '@heroicons/react/outline';
+import { TwitterTimelineEmbed } from 'react-twitter-embed';
 
 export default function Widgets() {
   return (
@@ -8,11 +9,16 @@ export default function Widgets() {
         <input
           type="text"
           placeholder="Search Twitter"
-          className="bg-transparent flex-1 outline-none"
+          className="flex-1 bg-transparent outline-none"
         />
       </div>
 
-      
+      {/* use react-twitter-embed - https://github.com/saurabhnemade/react-twitter-embed */}
+      <TwitterTimelineEmbed
+        sourceType="profile"
+        screenName="elonmusk"
+        options={{ height: 400 }}
+      />
     </div>
   );
 }
