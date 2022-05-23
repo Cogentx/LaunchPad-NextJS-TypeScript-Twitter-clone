@@ -13,13 +13,15 @@ import SidebarRow from './SidebarRow';
 
 export default function Sidebar() {
   return (
-    <div>
-      <Image
-        width={40}
-        height={40}
-        src="/logo-twitter.png"
-        alt="twitter logo"
-      />
+    <div className="col-span-2 flex flex-col items-center px-4 md:items-start">
+      <div className="m-3">
+        <Image
+          width={40}
+          height={40}
+          src="/logo-twitter.png"
+          alt="twitter logo"
+        />
+      </div>
       <SidebarRow Icon={HomeIcon} title="Home" />
       <SidebarRow Icon={HashtagIcon} title="Explore" />
       <SidebarRow Icon={BellIcon} title="Notifications" />
