@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["Tweetbox"]
+  "cSpell.words": ["Tweetbox"],
+  "eslint.workingDirectories": ["./src", "./_cms-sanity"]
 }
