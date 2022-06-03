@@ -29,7 +29,7 @@ export type TweetBody = {
 };
 
 export type CommentBody = {
-  comment: string;
+  text: string;
   username: string;
   tweetId: string;
   profileImage: string;

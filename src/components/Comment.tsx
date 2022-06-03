@@ -4,8 +4,6 @@ interface IProps {
   comment: IComment;
 }
 
-export default function Comment({comment}: IProps) {
-  return <div>
-    {comment.comment}
-  </div>;
+export default function Comment({ comment }: IProps) {
+  return <div>{comment.text}</div>;
 }
