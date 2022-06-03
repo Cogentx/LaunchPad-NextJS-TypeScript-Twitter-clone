@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/outline';
 import { IComment, ITweet } from '../../typings';
 import { fetchComments } from '../lib/utilities/fetchComments';
+import Comment from './Comment';
 
 interface IProps {
   tweet: ITweet;
@@ -21,10 +22,9 @@ export default function Tweet({ tweet }: IProps) {
     setComments(comments);
   };
 
-  useEffect(() => {refreshComments()}, []);
-
-  console.log({comments});
-  
+  useEffect(() => {
+    refreshComments();
+  }, []);
 
   return (
     <div className="flex flex-col space-x-3 border-y border-gray-100 p-5">
@@ -74,6 +74,16 @@ export default function Tweet({ tweet }: IProps) {
           </div>
         </div>
       </div>
+
+      {/* Comment Box Logic */}
+
+      {comments?.length > 0 && (
+        <div>
+          {comments.map((comment) => (
+            <Comment key={comment._id} comment={comment} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

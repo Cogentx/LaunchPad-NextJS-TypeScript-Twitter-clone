@@ -8,8 +8,6 @@ interface IProps {
 }
 
 export default function Feed({ tweets }: IProps) {
-  console.log({ tweets });
-
   return (
     <div className="col-span-7 border-x lg:col-span-5">
       <div className="flex items-center justify-between">
@@ -21,9 +19,10 @@ export default function Feed({ tweets }: IProps) {
         <Tweetbox />
       </div>
 
-
       <div>
-        {tweets.map((tweet, index) => <Tweet key={index} tweet={tweet}/>)}
+        {tweets.map((tweet) => (
+          <Tweet key={tweet._id} tweet={tweet} />
+        ))}
       </div>
     </div>
   );
