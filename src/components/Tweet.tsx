@@ -78,7 +78,7 @@ export default function Tweet({ tweet }: IProps) {
       {/* Comment Box Logic */}
 
       {comments?.length > 0 && (
-        <div className="mb-2 mt-5 p-5 max-h-44 overflow-y-scroll border-t border-gray-100">
+        <div className="my-2 mt-5 p-5 max-h-44 space-y-5 overflow-y-scroll border-t border-gray-100">
           {comments.map((comment) => (
             <Comment key={comment._id} comment={comment} />
           ))}
