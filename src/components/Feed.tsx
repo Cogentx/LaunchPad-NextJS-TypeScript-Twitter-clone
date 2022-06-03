@@ -1,13 +1,14 @@
 import { RefreshIcon } from '@heroicons/react/outline';
-import { Tweet } from '../../typings';
+import { ITweet } from '../../typings';
+import Tweet from './Tweet';
 import Tweetbox from './Tweetbox';
 
 interface IProps {
-  tweets: Tweet[];
+  tweets: ITweet[];
 }
 
-export default function Feed({tweets}:IProps) {
-  console.log({tweets});
+export default function Feed({ tweets }: IProps) {
+  console.log({ tweets });
 
   return (
     <div className="col-span-7 border-x lg:col-span-5">
@@ -16,8 +17,14 @@ export default function Feed({tweets}:IProps) {
         <RefreshIcon className="mr-5 mt-5 h-8 w-8 transform cursor-pointer text-twitter transition-all duration-500 ease-out hover:rotate-180 active:scale-125" />
       </div>
 
-      {/* Tweet Box */}
-      <Tweetbox />
+      <div>
+        <Tweetbox />
+      </div>
+
+
+      <div>
+        {tweets.map((tweet, index) => <Tweet key={index} tweet={tweet}/>)}
+      </div>
     </div>
   );
 }
