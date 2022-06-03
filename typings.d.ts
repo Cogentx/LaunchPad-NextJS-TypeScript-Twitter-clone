@@ -1,5 +1,5 @@
 // data coming in from Sanity CMS Backend
-export interface Tweet extends TweetBody {
+export interface ITweet extends TweetBody {
   _id: string;
   _createdAt: string;
   _updatedAt: string;

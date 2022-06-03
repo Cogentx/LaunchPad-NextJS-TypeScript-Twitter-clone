@@ -1,17 +1,16 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { Tweet } from '../../typings';
+import { ITweet } from '../../typings';
 import Feed from '../components/Feed';
 import Sidebar from '../components/Sidebar';
 import Widgets from '../components/Widgets';
 import { fetchTweets } from '../lib/utilities/fetchTweets';
 
 interface IProps {
-  tweets: Tweet[];
+  tweets: ITweet[];
 }
 
-const Home: NextPage<IProps> = ({tweets}:IProps) => {
-
+const Home: NextPage<IProps> = ({ tweets }: IProps) => {
   return (
     <div className="mx-auto max-h-screen overflow-hidden lg:max-w-6xl">
       <Head>
@@ -21,7 +20,7 @@ const Home: NextPage<IProps> = ({tweets}:IProps) => {
 
       <main className="grid grid-cols-9">
         <Sidebar />
-        <Feed tweets={tweets}/>
+        <Feed tweets={tweets} />
         <Widgets />
       </main>
     </div>

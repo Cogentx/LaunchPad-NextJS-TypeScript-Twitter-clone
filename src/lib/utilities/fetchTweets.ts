@@ -1,4 +1,4 @@
-import { Tweet } from '../../../typings';
+import { ITweet } from '../../../typings';
 
 export const fetchTweets = async () => {
   const response = await fetch(
@@ -6,7 +6,7 @@ export const fetchTweets = async () => {
   );
 
   const data = await response.json();
-  const tweets: Tweet[] = data.tweets;
+  const tweets: ITweet[] = data.tweets;
 
   return tweets;
 };
