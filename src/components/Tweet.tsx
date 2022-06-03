@@ -27,7 +27,7 @@ export default function Tweet({ tweet }: IProps) {
   }, []);
 
   return (
-    <div className="flex flex-col space-x-3 border-y border-gray-100 p-5">
+    <div className="flex flex-col space-y-3 border-y border-gray-100 p-5">
       <div className="flex space-x-3">
         <img
           className="h-10 w-10 rounded-full object-cover"
@@ -78,7 +78,7 @@ export default function Tweet({ tweet }: IProps) {
       {/* Comment Box Logic */}
 
       {comments?.length > 0 && (
-        <div>
+        <div className="mb-2 mt-5 p-5 max-h-44 overflow-y-scroll border-t border-gray-100">
           {comments.map((comment) => (
             <Comment key={comment._id} comment={comment} />
           ))}
