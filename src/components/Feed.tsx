@@ -1,7 +1,14 @@
 import { RefreshIcon } from '@heroicons/react/outline';
+import { Tweet } from '../../typings';
 import Tweetbox from './Tweetbox';
 
-export default function Feed() {
+interface IProps {
+  tweets: Tweet[];
+}
+
+export default function Feed({tweets}:IProps) {
+  console.log({tweets});
+
   return (
     <div className="col-span-7 border-x lg:col-span-5">
       <div className="flex items-center justify-between">
