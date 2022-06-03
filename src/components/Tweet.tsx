@@ -60,7 +60,7 @@ export default function Tweet({ tweet }: IProps) {
           <div className="m-5 ml-0 flex justify-between">
             <div className="tweetButton">
               <ChatAlt2Icon className="h-5 w-5" />
-              <p>5</p>
+              <p>{comments.length}</p>
             </div>
             <div className="tweetButton">
               <SwitchHorizontalIcon className="h-5 w-5" />
