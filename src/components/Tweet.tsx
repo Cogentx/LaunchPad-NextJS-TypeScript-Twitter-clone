@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import TimeAgo from 'react-timeago';
 import {
   ChatAlt2Icon,
@@ -5,13 +6,26 @@ import {
   SwitchHorizontalIcon,
   UploadIcon,
 } from '@heroicons/react/outline';
-import { ITweet } from '../../typings';
+import { IComment, ITweet } from '../../typings';
+import { fetchComments } from '../lib/utilities/fetchComments';
 
 interface IProps {
   tweet: ITweet;
 }
 
 export default function Tweet({ tweet }: IProps) {
+  const [comments, setComments] = useState<IComment[]>([]);
+
+  const refreshComments = async () => {
+    const comments: IComment[] = await fetchComments(tweet._id);
+    setComments(comments);
+  };
+
+  useEffect(() => {refreshComments()}, []);
+
+  console.log({comments});
+  
+
   return (
     <div className="flex flex-col space-x-3 border-y border-gray-100 p-5">
       <div className="flex space-x-3">
