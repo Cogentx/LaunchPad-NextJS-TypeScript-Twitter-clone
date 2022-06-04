@@ -1,5 +1,6 @@
-import { RefreshIcon } from '@heroicons/react/outline';
 import { useState } from 'react';
+import { RefreshIcon } from '@heroicons/react/outline';
+import toast from 'react-hot-toast';
 import { ITweet } from '../../typings';
 import { fetchTweets } from '../lib/utilities/fetchTweets';
 import Tweet from './Tweet';
@@ -10,12 +11,17 @@ interface IProps {
 }
 
 export default function Feed({ tweets: tweetsProp }: IProps) {
-
   const [tweets, setTweets] = useState<ITweet[]>(tweetsProp);
 
   const handleRefresh = async () => {
+    const refreshToast = toast.loading('Refreshing...');
+
     const tweets = await fetchTweets();
     setTweets(tweets);
+
+    toast.success('Feed Updated!', {
+      id: refreshToast,
+    });
   };
 
   return (
