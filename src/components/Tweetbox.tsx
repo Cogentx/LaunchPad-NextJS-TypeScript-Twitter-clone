@@ -5,15 +5,17 @@ import {
   PhotographIcon,
   SearchIcon,
 } from '@heroicons/react/outline';
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 export default function Tweetbox() {
   const [input, setInput] = useState<string>('');
+  const { data: session } = useSession();
 
   return (
     <div className="flex space-x-2 p-5">
       <img
-        src="/avatar-profile-placeholder.jpeg"
+        src={session?.user?.image || '/avatar-profile-placeholder.jpeg'}
         alt="placeholder profile avatar"
         className="h-14 w-14 rounded-full object-cover"
       />
@@ -35,7 +37,10 @@ export default function Tweetbox() {
               <CalendarIcon className="h-5 w-5" />
               <LocationMarkerIcon className="h-5 w-5" />
             </div>
-            <button disabled={!input} className="rounded-full bg-twitter px-5 py-2 font-bold text-white disabled:opacity-40">
+            <button
+              disabled={!input}
+              className="rounded-full bg-twitter px-5 py-2 font-bold text-white disabled:opacity-40"
+            >
               Tweet
             </button>
           </div>
