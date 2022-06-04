@@ -38,7 +38,7 @@ export default function Tweetbox() {
               <LocationMarkerIcon className="h-5 w-5" />
             </div>
             <button
-              disabled={!input}
+              disabled={!input || !session}
               className="rounded-full bg-twitter px-5 py-2 font-bold text-white disabled:opacity-40"
             >
               Tweet
