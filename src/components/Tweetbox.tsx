@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 export default function Tweetbox() {
   const [input, setInput] = useState<string>('');
+  const [imageUrlBoxIsOpen, setImageUrlBoxIsOpen] = useState<boolean>(false);
   const { data: session } = useSession();
 
   return (
@@ -31,7 +32,7 @@ export default function Tweetbox() {
           />
           <div className="flex items-center">
             <div className="flex flex-1 space-x-2 text-twitter">
-              <PhotographIcon className="h-5 w-5 cursor-pointer transition-transform duration-150 ease-out hover:scale-150" />
+              <PhotographIcon onClick={()=>setImageUrlBoxIsOpen(!imageUrlBoxIsOpen)} className="h-5 w-5 cursor-pointer transition-transform duration-150 ease-out hover:scale-150" />
               <SearchIcon className="h-5 w-5" />
               <EmojiHappyIcon className="h-5 w-5" />
               <CalendarIcon className="h-5 w-5" />
