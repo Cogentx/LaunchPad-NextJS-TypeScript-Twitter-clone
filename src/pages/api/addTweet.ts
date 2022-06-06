@@ -11,6 +11,7 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse<Data>
 ) {
+
   const {
     text,
     username,
@@ -21,12 +22,14 @@ export default async function handler(
   const mutations = {
     mutations: [
       {
-        _type: 'tweet',
-        blockTweet: false,
-        username,
-        text,
-        profileImage,
-        image,
+        create: {
+          _type: 'tweet',
+          blockTweet: false,
+          username,
+          text,
+          profileImage,
+          image,
+        },
       },
     ],
   };
@@ -36,8 +39,8 @@ export default async function handler(
   const result = await fetch(apiEndPoint, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.SANITY_TOKEN}`,
+      'Content-type': 'application/json',
+      Authorization: `Bearer ${process.env.SANITY_API_TOKEN}`,
     },
     body: JSON.stringify(mutations),
   });

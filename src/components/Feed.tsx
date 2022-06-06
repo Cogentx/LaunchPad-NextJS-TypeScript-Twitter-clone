@@ -35,7 +35,8 @@ export default function Feed({ tweets: tweetsProp }: IProps) {
       </div>
 
       <div>
-        <Tweetbox />
+        {/* TODO: this would be a use-case for Context API or Redux or Recoil to avoid Prop Drilling; only one level to pass 'setTweet' state update function;  certainly if going more than one level deep this change would be a must */}
+        <Tweetbox setTweets={setTweets} />
       </div>
 
       <div>
