@@ -1,3 +1,4 @@
+import React, {MouseEvent} from 'react';
 import {
   CalendarIcon,
   EmojiHappyIcon,
@@ -6,17 +7,23 @@ import {
   SearchIcon,
 } from '@heroicons/react/outline';
 import { useSession } from 'next-auth/react';
-import { useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
+import { ITweet, TweetBody } from '../../typings';
+import { fetchTweets } from '../lib/utilities/fetchTweets';
+interface IProps {
+  setTweets: Dispatch<SetStateAction<ITweet[]>>;
+}
 
-export default function Tweetbox() {
+export default function Tweetbox({ setTweets }: IProps) {
   const [input, setInput] = useState<string>('');
-  const [imageUrlBoxIsOpen, setImageUrlBoxIsOpen] = useState<boolean>(false);
   const [image, setImage] = useState<string>('');
+  const [imageUrlBoxIsOpen, setImageUrlBoxIsOpen] = useState<boolean>(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const { data: session } = useSession();
 
   const addImageToTweet = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
     e.preventDefault();
 
@@ -30,6 +37,52 @@ export default function Tweetbox() {
     imageInputRef.current.value = '';
 
     // close image URL input box
+    setImageUrlBoxIsOpen(false);
+  };
+
+  const postTweet = async () => {
+    const tweetInfo: TweetBody = {
+      text: input,
+      username: session?.user?.name || 'Unknown User',
+      profileImage: session?.user?.image || '/avatar-profile-placeholder.jpeg',
+      image,
+    };
+
+    try {
+      const result = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/addTweet`,
+        {
+          body: JSON.stringify(tweetInfo),
+          method: 'POST',
+        }
+      );
+    } catch (error) {
+      // TODO: handle error
+      console.log('postTweet:', { error });
+    }
+
+    // Re-fetch latest tweets
+    const newTweets = await fetchTweets();
+
+    // Update Tweet state
+    setTweets(newTweets);
+
+    // Display success message
+    toast('Tweet Posted!', {
+      icon: '🚀',
+    });
+  };
+
+  const handleSubmit = async (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    e.preventDefault();
+
+    postTweet();
+
+    // Reset default UI values
+    setInput('');
+    setImage('');
     setImageUrlBoxIsOpen(false);
   };
 
@@ -61,8 +114,11 @@ export default function Tweetbox() {
               <CalendarIcon className="h-5 w-5" />
               <LocationMarkerIcon className="h-5 w-5" />
             </div>
+
+            {/* Tweet Submit Button */}
             <button
               disabled={!input || !session}
+              onClick={handleSubmit}
               className="rounded-full bg-twitter px-5 py-2 font-bold text-white disabled:opacity-40"
             >
               Tweet
@@ -89,7 +145,12 @@ export default function Tweetbox() {
           )}
 
           {/* Tweet Image | if available */}
-          {image && <img className="mt-4 pb-2 h-40 w-full object-contain rounded-xl shadow-lg" src={image} />}
+          {image && (
+            <img
+              className="mt-4 h-40 w-full rounded-xl object-contain pb-2 shadow-lg"
+              src={image}
+            />
+          )}
         </form>
       </div>
     </div>
