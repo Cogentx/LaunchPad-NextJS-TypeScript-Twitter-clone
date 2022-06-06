@@ -64,7 +64,7 @@ export default function Tweetbox({ setTweets }: IProps) {
   ) => {
     e.preventDefault();
 
-    postNewTweet();
+    await postNewTweet();
 
     try {
       // Re-fetch latest tweets
@@ -129,7 +129,7 @@ export default function Tweetbox({ setTweets }: IProps) {
 
           {/* Image Box | if open */}
           {imageUrlBoxIsOpen && (
-            <form className="mt-5 flex rounded-lg bg-twitter/80 py-2 px-4">
+            <div className="mt-5 flex rounded-lg bg-twitter/80 py-2 px-4">
               <input
                 ref={imageInputRef}
                 className="flex-1 bg-transparent p-2 text-white outline-none placeholder:text-white"
@@ -143,7 +143,7 @@ export default function Tweetbox({ setTweets }: IProps) {
               >
                 Add Image
               </button>
-            </form>
+            </div>
           )}
 
           {/* Tweet Image | if available */}
