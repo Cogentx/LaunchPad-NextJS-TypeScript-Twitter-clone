@@ -1,4 +1,4 @@
-import React, {MouseEvent} from 'react';
+import React, { MouseEvent } from 'react';
 import {
   CalendarIcon,
   EmojiHappyIcon,
@@ -11,6 +11,7 @@ import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ITweet, TweetBody } from '../../typings';
 import { fetchTweets } from '../lib/utilities/fetchTweets';
+import { postTweet } from '../lib/utilities/postTweet';
 interface IProps {
   setTweets: Dispatch<SetStateAction<ITweet[]>>;
 }
@@ -40,7 +41,7 @@ export default function Tweetbox({ setTweets }: IProps) {
     setImageUrlBoxIsOpen(false);
   };
 
-  const postTweet = async () => {
+  const postNewTweet = async () => {
     const tweetInfo: TweetBody = {
       text: input,
       username: session?.user?.name || 'Unknown User',
@@ -49,28 +50,13 @@ export default function Tweetbox({ setTweets }: IProps) {
     };
 
     try {
-      const result = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/addTweet`,
-        {
-          body: JSON.stringify(tweetInfo),
-          method: 'POST',
-        }
-      );
+      // TODO: handle newly created tweet in there is a use-case to do so
+      // const result = await postTweet(tweetInfo);
+      await postTweet(tweetInfo);
     } catch (error) {
-      // TODO: handle error
-      console.log('postTweet:', { error });
+      // TODO: handle exception more gracefully than simply console logging
+      console.log('TweetBox - posting new tweet:', { error });
     }
-
-    // Re-fetch latest tweets
-    const newTweets = await fetchTweets();
-
-    // Update Tweet state
-    setTweets(newTweets);
-
-    // Display success message
-    toast('Tweet Posted!', {
-      icon: '🚀',
-    });
   };
 
   const handleSubmit = async (
@@ -78,7 +64,23 @@ export default function Tweetbox({ setTweets }: IProps) {
   ) => {
     e.preventDefault();
 
-    postTweet();
+    postNewTweet();
+
+    try {
+      // Re-fetch latest tweets
+      const newTweets = await fetchTweets();
+
+      // Update Tweet state
+      setTweets(newTweets);
+
+      // Display success message
+      toast('Tweet Posted!', {
+        icon: '🚀',
+      });
+    } catch (error) {
+      // TODO: handle exception more gracefully than simply console logging
+      console.log('TweetBox - fetching tweets:', { error });
+    }
 
     // Reset default UI values
     setInput('');
