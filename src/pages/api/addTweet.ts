@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// Sanity CMS Mutations: https://www.sanity.io/docs/http-mutations
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { ITweet, TweetBody } from '../../../typings';
 
