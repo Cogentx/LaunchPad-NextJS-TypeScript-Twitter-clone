@@ -25,7 +25,7 @@ export default function Feed({ tweets: tweetsProp }: IProps) {
   };
 
   return (
-    <div className="col-span-7 border-x max-h-screen overflow-scroll lg:col-span-5">
+    <div className="col-span-7 border-x max-h-screen overflow-scroll scrollbar-hide lg:col-span-5">
       <div className="flex items-center justify-between">
         <h1 className="p-5 pb-0 text-xl font-bold">Home</h1>
         <RefreshIcon
