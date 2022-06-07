@@ -50,7 +50,7 @@ export default function Tweetbox({ setTweets }: IProps) {
     };
 
     try {
-      // TODO: handle newly created tweet in there is a use-case to do so
+      // TODO: handle newly created tweet if there is a use-case to do so
       // const result = await postTweet(tweetInfo);
       await postTweet(tweetInfo);
     } catch (error) {
