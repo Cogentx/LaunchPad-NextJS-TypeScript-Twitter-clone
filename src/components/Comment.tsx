@@ -21,6 +21,7 @@ export default function Comment({ comment }: IProps) {
           <p className="hidden text-sm text-gray-500 lg:inline">
             @{comment.username.replace(/\s+/g, '').toLowerCase()} ·
           </p>
+          
           <TimeAgo
             className="text-sm text-gray-500"
             date={comment._createdAt}

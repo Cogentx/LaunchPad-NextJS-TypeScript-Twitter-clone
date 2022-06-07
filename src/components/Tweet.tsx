@@ -33,8 +33,6 @@ export default function Tweet({ tweet }: IProps) {
     refreshComments();
   }, []);
 
-  const postNewComment = async () => {};
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -49,9 +47,10 @@ export default function Tweet({ tweet }: IProps) {
       profileImage: session?.user?.image || '/avatar-profile-placeholder.jpeg',
     };
 
+    // Comment logic
     try {
       // TODO: handle newly created comment if there is a use-case to do so
-      // const result = await postComment(commentInfo);
+      // const comment: IComment = await postComment(commentInfo);
       await postComment(commentInfo);
     } catch (error) {
       // TODO: handle exception more gracefully than simply console logging
@@ -64,12 +63,12 @@ export default function Tweet({ tweet }: IProps) {
 
     // Reset default UI values
     setInput('');
-    se
+    setCommentBoxVisible(false);
     refreshComments();
   };
 
   return (
-    <div className="flex flex-col space-y-3 border-y border-gray-100 p-5">
+    <div className="flex flex-col space-x-3 border-y border-gray-100 p-5">
       <div className="flex space-x-3">
         <img
           className="h-10 w-10 rounded-full object-cover"
@@ -83,6 +82,7 @@ export default function Tweet({ tweet }: IProps) {
             <p className="hidden text-sm text-gray-500 sm:inline">
               @{tweet.username.replace(/\s+/g, '').toLowerCase()} ·
             </p>
+
             <TimeAgo
               className="text-sm text-gray-500"
               date={tweet._createdAt}
@@ -93,38 +93,36 @@ export default function Tweet({ tweet }: IProps) {
 
           {tweet.image && (
             <img
-              className="m-5 ml-0 max-h-60 rounded-lg object-cover shadow-sm"
+              className="m-5 ml-0 mb-1 max-h-60 rounded-lg object-cover shadow-sm"
               src={tweet.image}
               alt="tweet image"
             />
           )}
+        </div>
+      </div>
 
-          <div className="m-5 ml-0 flex justify-between">
-            <div
-              className="tweetButton"
-              onClick={() =>
-                session && setCommentBoxVisible(!commentBoxVisible)
-              }
-            >
-              <ChatAlt2Icon className="h-5 w-5" />
-              <p>{comments.length}</p>
-            </div>
-            <div className="tweetButton">
-              <SwitchHorizontalIcon className="h-5 w-5" />
-            </div>
-            <div className="tweetButton">
-              <HeartIcon className="h-5 w-5" />
-            </div>
-            <div className="tweetButton">
-              <UploadIcon className="h-5 w-5" />
-            </div>
-          </div>
+      <div className="m-5 ml-0 flex justify-between">
+        <div
+          className="tweetButton"
+          onClick={() => session && setCommentBoxVisible(!commentBoxVisible)}
+        >
+          <ChatAlt2Icon className="h-5 w-5" />
+          <p>{comments.length}</p>
+        </div>
+        <div className="tweetButton">
+          <SwitchHorizontalIcon className="h-5 w-5" />
+        </div>
+        <div className="tweetButton">
+          <HeartIcon className="h-5 w-5" />
+        </div>
+        <div className="tweetButton">
+          <UploadIcon className="h-5 w-5" />
         </div>
       </div>
 
       {/* Comment Box Logic */}
       {commentBoxVisible && (
-        <form onSubmit={(e) => handleSubmit} className="mt-3 flex space-x-3">
+        <form onSubmit={handleSubmit} className="mt-3 flex space-x-3">
           <input
             className="flex-1 rounded-lg bg-gray-100 p-2 outline-none"
             type="text"
